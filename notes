@@ -378,3 +378,5 @@ within the <Navi> tags add the urls
 git remote -v to check the git repo on your project
 git status
 git  --version
+to ignore a file create a file called .gitignore
+then type the name of the file inside it
