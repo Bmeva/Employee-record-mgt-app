@@ -14,4 +14,4 @@ class WorkProject(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f"{self.Project_name}  {self.id}"
+        return f"{self.project_name}  {self.id}"
