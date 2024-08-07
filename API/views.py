@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import WorkProject
+from .models import EmployeeDetails
 
 from rest_framework import viewsets, permissions
 
-from .serializers import WorkProjectSerializers
+from .serializers import EmployeeDetailsSerializers  
 from rest_framework.response import Response
+
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
@@ -13,10 +15,12 @@ def home(request):
     
     return HttpResponse('Welcome to our home page')
 
-class ProjectAPIviewset(viewsets.ViewSet):
+class EmpAPIviewset(viewsets.ViewSet):
     permission_classes = [permissions.AllowAny]
-    queryset = WorkProject.objects.all()
-    serializer_class = WorkProjectSerializers
+    #permission_classes = [IsAuthenticated]
+    
+    queryset = EmployeeDetails.objects.all()
+    serializer_class = EmployeeDetailsSerializers
     
     def list(self, request):
         queryset = self.queryset
@@ -34,13 +38,13 @@ class ProjectAPIviewset(viewsets.ViewSet):
         
 
     def retrieve(self, request, pk=None):
-        mevabproject = self.queeryset.get(pk=pk)
-        serializer = self.serializer_class(mevabproject)
+        mevabemp= self.queeryset.get(pk=pk)
+        serializer = self.serializer_class(mevabemp)
         return Response(serializer.data)
 
     def update(self, request, pk=None):
-        mevabproject = self.queeryset.get(pk=pk)
-        serializer = self.serializer_class(mevabproject, data= request.data)
+        mevabemp = self.queeryset.get(pk=pk)
+        serializer = self.serializer_class(mevabemp, data= request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,8 +54,8 @@ class ProjectAPIviewset(viewsets.ViewSet):
         
 
     def destroy(self, request, pk=None):
-        mevabproject = self.queeryset.get(pk=pk)
-        mevabproject.delete()
+        mevabemp = self.queeryset.get(pk=pk)
+        mevabemp.delete()
         return Response(status=204)
         
     
